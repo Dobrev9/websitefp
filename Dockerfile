@@ -14,12 +14,14 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     libpq-dev \
-    postgresql-client && \
+    ca-certificates \
+    dnsutils && \
     rm -rf /var/lib/apt/lists/*
+
+RUN nc -zv dpg-d1ohms3ipnbc73f26sv0-a 5432 || echo "Database connection test failed"
 
 # Set production environment
 ENV RAILS_ENV="production" \

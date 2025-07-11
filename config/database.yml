@@ -14,5 +14,6 @@ test:
   database: your_app_test
 
 production:
-  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  sslmode: require
   # Render/Fly.io will auto-inject DATABASE_URL
