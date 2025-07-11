@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 8.0.2"
 gem "propshaft"
-gem "pg"  # Primary database - PostgreSQL
+gem "pg", "~> 1.4"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
 gem "turbo-rails"

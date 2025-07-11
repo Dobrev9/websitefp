@@ -365,7 +365,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
-  pg
+  pg (~> 1.4)
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
