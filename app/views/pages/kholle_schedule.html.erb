@@ -1,0 +1,355 @@
+<% content_for :title, "Khôlle Schedule - Dynamic Generator" %>
+<% content_for :description, "Configure and generate oral examination schedules dynamically." %>
+
+<div class="container mt-5">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);">
+        <div class="card-body text-white p-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h1 class="h2 fw-bold mb-2">📅 Khôlle Schedule Generator</h1>
+              <p class="mb-0 opacity-90">Configure and generate oral examination schedules</p>
+            </div>
+            <div class="text-end">
+              <%= link_to "← Back to Dashboard", protected_content_path, 
+                  class: "btn btn-light fw-semibold" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% unless @generated_schedule %>
+    <!-- Input Form -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">
+              <i class="fas fa-edit me-2"></i>
+              Configure Schedule
+            </h5>
+          </div>
+          <div class="card-body">
+            <%= form_with url: kholle_schedule_path, method: :post, local: true, id: "scheduleForm", data: { turbo: false } do |f| %>
+              <!-- Teachers Section -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">Teachers (1-5)</label>
+                <div id="teachersContainer">
+                  <% if @teachers&.any? %>
+                    <% @teachers.each do |teacher| %>
+                      <div class="input-group mb-2">
+                        <%= text_field_tag "teachers[]", teacher, class: "form-control", placeholder: "Teacher name" %>
+                        <button class="btn btn-outline-danger" type="button" onclick="removeTeacher(this)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <div class="input-group mb-2">
+                      <%= text_field_tag "teachers[]", "Ms Klofa", class: "form-control", placeholder: "Teacher name" %>
+                      <button class="btn btn-outline-danger" type="button" onclick="removeTeacher(this)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                    <div class="input-group mb-2">
+                      <%= text_field_tag "teachers[]", "Ms Pricop", class: "form-control", placeholder: "Teacher name" %>
+                      <button class="btn btn-outline-danger" type="button" onclick="removeTeacher(this)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                    <div class="input-group mb-2">
+                      <%= text_field_tag "teachers[]", "Mr Dobrev", class: "form-control", placeholder: "Teacher name" %>
+                      <button class="btn btn-outline-danger" type="button" onclick="removeTeacher(this)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  <% end %>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addTeacher()">
+                  <i class="fas fa-plus me-1"></i>Add Teacher
+                </button>
+              </div>
+
+              <!-- Students Section -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">Students (15-25)</label>
+                <div id="studentsContainer">
+                  <% if @students&.any? %>
+                    <% @students.each_with_index do |student, index| %>
+                      <div class="row mb-2">
+                        <div class="col-md-6">
+                          <%= text_field_tag "students[#{index}][name]", student[:name], class: "form-control", placeholder: "Student name" %>
+                        </div>
+                        <div class="col-md-4">
+                          <%= select_tag "students[#{index}][type]", options_for_select([["Boarding", "Boarding"], ["Day", "Day"]], student[:type]), class: "form-select" %>
+                        </div>
+                        <div class="col-md-2">
+                          <button class="btn btn-outline-danger w-100" type="button" onclick="removeStudent(this)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <% default_students = [
+                         {name: "Mitko", type: "Boarding"}, {name: "Stanimir", type: "Day"}, {name: "Nasco", type: "Day"},
+                         {name: "Nikolina", type: "Boarding"}, {name: "Evgeni", type: "Boarding"}, {name: "Toshko", type: "Day"},
+                         {name: "Mikhail", type: "Day"}, {name: "Florina", type: "Boarding"}, {name: "Ivan", type: "Day"},
+                         {name: "Marina", type: "Boarding"}, {name: "Georgi", type: "Day"}, {name: "Georgia", type: "Boarding"},
+                         {name: "Petar", type: "Day"}, {name: "Nikolai", type: "Boarding"}, {name: "Mateja", type: "Day"},
+                         {name: "Teodor", type: "Boarding"}
+                       ] %>
+                    <% default_students.each_with_index do |student, index| %>
+                      <div class="row mb-2">
+                        <div class="col-md-6">
+                          <%= text_field_tag "students[#{index}][name]", student[:name], class: "form-control", placeholder: "Student name" %>
+                        </div>
+                        <div class="col-md-4">
+                          <%= select_tag "students[#{index}][type]", options_for_select([["Boarding", "Boarding"], ["Day", "Day"]], student[:type]), class: "form-select" %>
+                        </div>
+                        <div class="col-md-2">
+                          <button class="btn btn-outline-danger w-100" type="button" onclick="removeStudent(this)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addStudent()">
+                  <i class="fas fa-plus me-1"></i>Add Student
+                </button>
+              </div>
+
+              <!-- Generate Button -->
+              <div class="text-center">
+                <%= f.submit "Generate Schedule", class: "btn btn-lg fw-semibold text-white", 
+                    style: "background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); border: none;" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @success && @generated_schedule %>
+    <!-- Success - Display Schedule -->
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-success d-flex align-items-center mb-4" role="alert">
+          <i class="fas fa-check-circle me-2"></i>
+          <div>
+            <strong>Schedule Generated Successfully!</strong> Below are the 10 oral examination sessions.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule Sessions -->
+    <% @generated_schedule.each_with_index do |session, index| %>
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-calendar-day me-2"></i>
+                Session <%= index + 1 %>
+              </h5>
+            </div>
+            <div class="card-body">
+              <% if session[:error] %>
+                <div class="alert alert-danger">
+                  <strong>Error:</strong> <%= session[:error] %>
+                </div>
+              <% else %>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <% session[:table].each_with_index do |row, row_index| %>
+                      <% if row_index == 0 %>
+                        <thead class="table-dark">
+                          <tr>
+                            <% row.each do |cell| %>
+                              <th><%= cell %></th>
+                            <% end %>
+                          </tr>
+                        </thead>
+                        <tbody>
+                      <% else %>
+                        <tr>
+                          <% row.each do |cell| %>
+                            <td><%= cell %></td>
+                          <% end %>
+                        </tr>
+                      <% end %>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  <% elsif @error_message %>
+    <!-- Error State -->
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          <div>
+            <strong>Error generating schedule:</strong><br>
+            <%= @error_message %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Action Buttons -->
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <%= link_to "🔄 Generate New Schedule", kholle_schedule_path, 
+          class: "btn btn-primary btn-lg me-3 fw-semibold",
+          style: "background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); border: none;",
+          data: { turbo: false } %>
+      <%= link_to "🏠 Back to Dashboard", protected_content_path, 
+          class: "btn btn-outline-secondary btn-lg fw-semibold" %>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card border-0 bg-light">
+        <div class="card-body p-4">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h6 class="fw-bold text-dark mb-2">Schedule Information</h6>
+              <ul class="list-unstyled mb-0 text-muted small">
+                <li>• <strong>Teachers:</strong> 1-5 teachers (configurable)</li>
+                <li>• <strong>Students:</strong> 15-25 students (Boarding and Day students)</li>
+                <li>• <strong>Time Slots:</strong> 16h40-18h, 17h40-19h, 18h40-20h</li>
+                <li>• <strong>Sessions:</strong> 10 examination sessions generated</li>
+                <li>• <strong>Group Size:</strong> 2-3 students per group</li>
+              </ul>
+            </div>
+            <div class="col-md-4 text-end">
+              <i class="fas fa-info-circle text-info" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for dynamic form management -->
+<script>
+  // Use window properties to avoid redeclaration issues
+  window.khollePage = window.khollePage || {};
+  window.khollePage.studentCounter = <%= @students&.length || 16 %>;
+  window.khollePage.teacherCounter = <%= @teachers&.length || 3 %>;
+
+  function addTeacher() {
+    const container = document.getElementById('teachersContainer');
+    if (container.children.length >= 5) {
+      alert('Maximum 5 teachers allowed');
+      return;
+    }
+    
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+      <input type="text" class="form-control" placeholder="Teacher name" name="teachers[]">
+      <button class="btn btn-outline-danger" type="button" onclick="removeTeacher(this)">
+        <i class="fas fa-trash"></i>
+      </button>
+    `;
+    container.appendChild(div);
+    window.khollePage.teacherCounter++;
+  }
+
+  function removeTeacher(btn) {
+    const container = document.getElementById('teachersContainer');
+    if (container.children.length <= 1) {
+      alert('At least 1 teacher is required');
+      return;
+    }
+    btn.parentElement.remove();
+    window.khollePage.teacherCounter--;
+  }
+
+  function addStudent() {
+    const container = document.getElementById('studentsContainer');
+    if (container.children.length >= 25) {
+      alert('Maximum 25 students allowed');
+      return;
+    }
+    
+    const div = document.createElement('div');
+    div.className = 'row mb-2';
+    div.innerHTML = `
+      <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Student name" name="students[${window.khollePage.studentCounter}][name]">
+      </div>
+      <div class="col-md-4">
+        <select class="form-select" name="students[${window.khollePage.studentCounter}][type]">
+          <option value="Boarding">Boarding</option>
+          <option value="Day">Day</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-outline-danger w-100" type="button" onclick="removeStudent(this)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    `;
+    container.appendChild(div);
+    window.khollePage.studentCounter++;
+  }
+
+  function removeStudent(btn) {
+    const container = document.getElementById('studentsContainer');
+    if (container.children.length <= 15) {
+      alert('Minimum 15 students required');
+      return;
+    }
+    btn.closest('.row').remove();
+  }
+
+  // Form validation
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('scheduleForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        const teacherInputs = document.querySelectorAll('input[name="teachers[]"]');
+        const studentInputs = document.querySelectorAll('input[name*="[name]"]');
+        
+        const validTeachers = Array.from(teacherInputs).filter(input => input.value.trim().length > 0);
+        const validStudents = Array.from(studentInputs).filter(input => input.value.trim().length > 0);
+        
+        if (validTeachers.length < 1 || validTeachers.length > 5) {
+          alert('Please enter 1-5 teachers');
+          e.preventDefault();
+          return;
+        }
+        
+        if (validStudents.length < 15 || validStudents.length > 25) {
+          alert('Please enter 15-25 students');
+          e.preventDefault();
+          return;
+        }
+      });
+    }
+  });
+</script>
+
+<!-- Add Font Awesome for icons (if not already included) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

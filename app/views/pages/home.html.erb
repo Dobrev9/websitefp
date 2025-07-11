@@ -1,0 +1,506 @@
+<% content_for :title, "English Class by Florina Pricop" %>
+<% content_for :description, "Welcome to Ms. Florina Pricop's English classes. Discover courses in ELA, World Literature, Creative Writing, and AP English with personalized student support and resources." %>
+
+<!-- Page Introduction -->
+<section class="page-intro ev-section-bg ev-backdrop-blur-sm ev-rounded-xl ev-p-6 ev-shadow-md ev-border ev-border-gray-200 ev-mb-6" aria-labelledby="welcome-heading">
+  <div class="text-center">
+    <h2 id="welcome-heading" class="ev-section-h2 text-center mb-3">Welcome to English Class</h2>
+    <p class="ev-section-p lead">
+      Discover the joy of language, literature, and creative expression in a supportive learning environment.
+    </p>
+  </div>
+</section>
+
+<!-- About Me Section -->
+<section id="about" 
+         class="ev-section-bg ev-backdrop-blur-sm ev-rounded-xl ev-p-6 ev-shadow-md ev-border ev-border-gray-200" 
+         aria-labelledby="about-heading">
+  <header>
+    <h2 id="about-heading" class="ev-section-h2">
+      About Me
+      <small class="text-muted d-block fs-6 mt-1">Your English Teacher</small>
+    </h2>
+  </header>
+  
+  <div class="about-content">
+    <p class="ev-section-p ev-leading-relaxed mb-3">
+      Hello! I'm <strong>Ms. Florina Pricop</strong>, an experienced English teacher passionate about language and literature.
+      My goal is to foster a love for reading, writing, and critical thinking in all my students.
+    </p>
+    <p class="ev-section-p ev-leading-relaxed mb-3">
+      I believe in creating an engaging and supportive learning environment where every student can thrive.
+      With years of experience in education, I'm committed to helping each student discover their unique voice and develop strong communication skills.
+    </p>
+    
+    <!-- Teaching Philosophy -->
+    <div class="teaching-philosophy mt-4 p-3 bg-light rounded">
+      <h3 class="h6 fw-bold text-primary mb-2">My Teaching Philosophy</h3>
+      <p class="small mb-0 text-muted">
+        "Every student has a story to tell and the potential to excel. My role is to provide the tools, 
+        encouragement, and guidance needed to unlock that potential."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Courses Offered Section -->
+<section id="courses" 
+         class="ev-section-bg ev-backdrop-blur-sm ev-rounded-xl ev-p-6 ev-shadow-md ev-border ev-border-gray-200" 
+         aria-labelledby="courses-heading">
+  <header>
+    <h2 id="courses-heading" class="ev-section-h2">
+      Projects carried out
+      <small class="text-muted d-block fs-6 mt-1">Academic Year <%= "2016" %>-<%= Date.current.year + 1 %></small>
+    </h2>
+  </header>
+  
+  <div class="courses-list">
+    <ul class="ev-list-disc ev-list-inside ev-space-y-2" role="list">
+      <li>
+        <strong>Sharing the world</strong>: disability and displacement
+        <small class="d-block text-muted">People across France and other European countries celebrated the Erasmus+ program, highlighting its impact on European citizens and expressing the community’s strong support for this renowned initiative named after the humanist Erasmus.</small>
+      </li>
+      <li>
+        <strong>Introduction to World Literature</strong>
+        <small class="d-block text-muted">Explore diverse voices and cultures through literature</small>
+      </li>
+      <li>
+        <strong>Creative Writing Workshop</strong>
+        <small class="d-block text-muted">Develop your unique voice through poetry, fiction, and essays</small>
+      </li>
+      <li>
+        <strong>Advanced Placement (AP) English Literature and Composition</strong>
+        <small class="d-block text-muted">College-level analysis and critical writing skills</small>
+      </li>
+      <li>
+        <strong>ESL Support Classes</strong>
+        <small class="d-block text-muted">Personalized support for English language learners</small>
+      </li>
+    </ul>
+    
+    <!-- Course Registration CTA -->
+    <div class="course-cta mt-4 p-3 bg-primary bg-opacity-10 rounded">
+      <p class="small mb-2">
+        <strong>Interested in a partnership?</strong> 
+        <a href="#contact" class="text-primary">Contact me</a> to discuss a future project.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Resources Section with Folder Navigation -->
+<section id="resources" 
+         class="ev-section-bg ev-backdrop-blur-sm ev-rounded-xl ev-p-6 ev-shadow-md ev-border ev-border-gray-200 ev-md-col-span-2" 
+         aria-labelledby="resources-heading">
+  <header>
+    <h2 id="resources-heading" class="ev-section-h2">
+      Student Resources
+      <small class="text-muted d-block fs-6 mt-1">Tools for Success</small>
+    </h2>
+  </header>
+  
+  <div class="resources-content">
+    <p class="ev-section-p mb-4">
+      Access a comprehensive collection of learning materials, practice exercises, and study guides designed to support your academic journey.
+    </p>
+      
+    <!-- Reading Lists - Enhanced Full Width -->
+    <div class="resource-card reading-lists-card mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-primary bg-opacity-10 border-0">
+          <div class="d-flex align-items-center">
+            <div class="resource-icon me-3 text-primary">
+              <i class="bi bi-book-fill fs-3" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h3 class="h5 fw-bold mb-1 text-primary">Reading Lists</h3>
+              <small class="text-muted">Essential literature for your academic journey</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="reading-category">
+                <h6 class="fw-semibold text-dark mb-2">
+                  <i class="bi bi-bookmark-fill text-warning me-2"></i>
+                  Classic Literature
+                </h6>
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">White Noise</strong>
+                        <small class="d-block text-muted">Don DeLillo</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">Animal Farm</strong>
+                        <small class="d-block text-muted">George Orwell</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">The Power and the Glory</strong>
+                        <small class="d-block text-muted">Graham Greene</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">Martin Eden</strong>
+                        <small class="d-block text-muted">Jack London</small>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="reading-category">
+                <h6 class="fw-semibold text-dark mb-2">
+                  <i class="bi bi-search text-danger me-2"></i>
+                  Mystery & Dystopian
+                </h6>
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">Death on the Nile</strong>
+                        <small class="d-block text-muted">Agatha Christie</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">And Then There Were None</strong>
+                        <small class="d-block text-muted">Agatha Christie</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">Murder on the Orient Express</strong>
+                        <small class="d-block text-muted">Agatha Christie</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">1984</strong>
+                        <small class="d-block text-muted">George Orwell</small>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="mb-2">
+                    <div class="d-flex align-items-start">
+                      <i class="bi bi-book text-primary me-2 mt-1"></i>
+                      <div>
+                        <strong class="text-dark">Fahrenheit 451</strong>
+                        <small class="d-block text-muted">Ray Bradbury</small>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Homework Portal - Dynamic Content -->
+    <div class="resource-card homework-portal-card mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-success bg-opacity-10 border-0">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <div class="resource-icon me-3 text-success">
+                <i class="bi bi-clipboard-check-fill fs-3" aria-hidden="true"></i>
+              </div>
+              <div>
+                <h3 class="h5 fw-bold mb-1 text-success">Homework Portal</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- FIXED: Properly handle whitespace and line breaks -->
+          <div class="ev-section-p small mb-0" style="white-space: pre-line;">
+            <%= (@homework_content&.strip || "Find daily assignments and submission links. Stay organized with due dates and requirements.") %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Document Folders Section (Dossiers) -->
+    <% if @resource_folders && @resource_folders.any? %>
+      <div class="document-folders mt-4">
+        <h3 class="h6 fw-bold mb-3">
+          <i class="bi bi-folder2-open text-warning me-2"></i>
+          Dossiers (Document Folders)
+        </h3>
+        
+        <div class="folders-container">
+          <div class="row g-3">
+            <% @resource_folders.each do |folder_name, folder_data| %>
+              <div class="col-md-6 col-lg-4">
+                <div class="folder-card" data-folder="<%= folder_name %>">
+                  <!-- Folder Header (Clickable) -->
+                  <div class="card border-0 shadow-sm h-100 folder-item folder-closed" 
+                       style="cursor: pointer; transition: all 0.3s ease;"
+                       onclick="toggleResourceFolder('<%= folder_name.gsub(/[^a-zA-Z0-9]/, '-') %>')"
+                       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'"
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+                    <div class="card-body p-3">
+                      <div class="d-flex align-items-center">
+                        <div class="folder-icon me-3">
+                          <i class="bi bi-folder-fill text-warning folder-icon-closed" style="font-size: 2rem;"></i>
+                          <i class="bi bi-folder2-open text-warning folder-icon-open" style="font-size: 2rem; display: none;"></i>
+                        </div>
+                        <div class="folder-info flex-grow-1">
+                          <h6 class="card-title mb-1 fw-semibold text-dark">
+                            <%= folder_name %>
+                          </h6>
+                          <p class="card-text small text-muted mb-0">
+                            <i class="bi bi-file-earmark me-1"></i>
+                            <%= pluralize(folder_data[:files].length, 'file') %>
+                            <% if folder_data[:size] && folder_data[:size] > 0 %>
+                              • <%= number_to_human_size(folder_data[:size]) %>
+                            <% end %>
+                          </p>
+                        </div>
+                        <div class="folder-arrow">
+                          <i class="bi bi-chevron-right text-muted folder-arrow-closed"></i>
+                          <i class="bi bi-chevron-down text-muted folder-arrow-open" style="display: none;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Folder Contents (Initially Hidden) -->
+                  <div id="resource-folder-<%= folder_name.gsub(/[^a-zA-Z0-9]/, '-') %>" 
+                       class="folder-contents mt-2" 
+                       style="display: none;">
+                    <div class="card border-start border-warning border-3 shadow-sm">
+                      <div class="card-header bg-warning bg-opacity-10 py-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <small class="fw-semibold text-dark">
+                            <i class="bi bi-folder-open me-1"></i>
+                            <%= folder_name %>
+                          </small>
+                          <button class="btn btn-sm btn-link text-muted p-0" 
+                                  onclick="event.stopPropagation(); toggleResourceFolder('<%= folder_name.gsub(/[^a-zA-Z0-9]/, '-') %>')"
+                                  title="Close folder">
+                            <i class="bi bi-x-lg"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="card-body p-0">
+                        <% if folder_data[:files] && folder_data[:files].any? %>
+                          <div class="list-group list-group-flush">
+                            <% folder_data[:files].each do |file| %>
+                              <div class="list-group-item border-0 py-2 px-3 file-item" 
+                                   style="transition: background-color 0.2s ease;"
+                                   onmouseover="this.style.backgroundColor='#f8f9fa'"
+                                   onmouseout="this.style.backgroundColor='transparent'">
+                                <div class="d-flex align-items-center justify-content-between">
+                                  <div class="d-flex align-items-center file-info">
+                                    <i class="bi bi-<%= get_bootstrap_file_icon(file[:name]) %> text-primary me-2"></i>
+                                    <div>
+                                      <div class="fw-medium text-dark file-name">
+                                        <%= file[:name] %>
+                                      </div>
+                                      <small class="text-muted">
+                                        <%= number_to_human_size(file[:size]) %>
+                                        <% if file[:modified] %>
+                                          • <%= file[:modified].strftime("%b %d, %Y") %>
+                                        <% end %>
+                                      </small>
+                                    </div>
+                                  </div>
+                                  <div class="file-actions">
+                                    <a href="<%= file[:url] %>" 
+                                       class="btn btn-outline-primary btn-sm"
+                                       target="_blank"
+                                       title="Download <%= file[:name] %>"
+                                       onclick="event.stopPropagation();">
+                                      <i class="bi bi-download"></i>
+                                      <span class="d-none d-sm-inline ms-1">Download</span>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
+                        <% else %>
+                          <div class="text-center py-4 text-muted">
+                            <i class="bi bi-file-earmark-x" style="font-size: 2rem;"></i>
+                            <p class="mb-0 small mt-2">This folder is empty</p>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Individual Files in Root Directory -->
+    <% if @root_files && @root_files.any? %>
+      <div class="root-files mt-4">
+        <h3 class="h6 fw-bold mb-3">
+          <i class="bi bi-file-earmark text-primary me-2"></i>
+          General Resources
+        </h3>
+        <div class="row g-2">
+          <% @root_files.each do |file| %>
+            <div class="col-md-6 col-lg-4">
+              <a href="<%= file[:url] %>" 
+                 class="btn btn-outline-primary btn-sm w-100 text-start d-flex align-items-center file-download-btn"
+                 target="_blank"
+                 title="Download <%= file[:name] %>"
+                 style="transition: all 0.2s ease;"
+                 onmouseover="this.style.backgroundColor='#0d6efd'; this.style.color='white'; this.style.borderColor='#0d6efd'"
+                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#0d6efd'; this.style.borderColor='#0d6efd'">
+                <i class="bi bi-file-earmark-arrow-down me-2"></i>
+                <span class="text-truncate flex-grow-1"><%= file[:name] %></span>
+                <small class="text-muted ms-2">(<%= number_to_human_size(file[:size]) %>)</small>
+              </a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    
+    <!-- Quick Links -->
+    <div class="quick-links mt-4 p-3 bg-light rounded">
+      <h3 class="h6 fw-bold mb-2">Quick Links</h3>
+      <div class="d-flex flex-wrap gap-2">
+        <% if @weekly_schedule %>
+          <a href="<%= @weekly_schedule[:url] %>" 
+             class="btn btn-outline-primary btn-sm"
+             target="_blank"
+             title="Download Weekly Schedule (<%= number_to_human_size(@weekly_schedule[:size]) %>)">
+            <i class="bi bi-calendar-week me-1"></i>
+            Weekly Schedule
+          </a>
+        <% else %>
+          <span class="btn btn-outline-secondary btn-sm disabled">
+            <i class="bi bi-calendar-week me-1"></i>
+            Weekly Schedule (Not uploaded)
+          </span>
+        <% end %>
+        
+        <% if @kholle_schedule %>
+          <a href="<%= @kholle_schedule[:url] %>" 
+             class="btn btn-outline-primary btn-sm"
+             target="_blank"
+             title="Download Khôlle Schedule (<%= number_to_human_size(@kholle_schedule[:size]) %>)">
+            <i class="bi bi-calendar-check me-1"></i>
+            Khôlle Schedule
+          </a>
+        <% else %>
+          <span class="btn btn-outline-secondary btn-sm disabled">
+            <i class="bi bi-calendar-check me-1"></i>
+            Khôlle Schedule (Not uploaded)
+          </span>
+        <% end %>
+      </div>
+      
+      <!-- Schedule Upload Status -->
+      <% if @weekly_schedule || @kholle_schedule %>
+        <div class="mt-2">
+          <small class="text-muted">
+            <i class="bi bi-info-circle me-1"></i>
+            Schedules are updated when you upload new files from the admin panel.
+          </small>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" 
+         class="ev-section-bg ev-backdrop-blur-sm ev-rounded-xl ev-p-6 ev-shadow-md ev-border ev-border-gray-200 ev-md-col-span-2" 
+         aria-labelledby="contact-heading">
+  <header>
+    <h2 id="contact-heading" class="ev-section-h2">
+      Get in Touch
+      <small class="text-muted d-block fs-6 mt-1">Questions? Need Help?</small>
+    </h2>
+  </header>
+  
+  <div class="contact-content">
+    <p class="ev-section-p ev-mb-4">
+      I'm here to support your learning journey. If you have any questions, need additional help, 
+      or want to discuss your academic goals, please don't hesitate to reach out.
+    </p>
+    
+    <div class="contact-info row g-3">
+      <!-- Email -->
+      <div class="col-md-6">
+        <div class="contact-method p-3 border rounded h-100">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-envelope fs-5 text-primary me-2" aria-hidden="true"></i>
+            <strong class="fw-bold">Email</strong>
+          </div>
+          <p class="ev-section-p mb-2">
+            <%= link_to "florina.pricop@scse-edu.fr", 
+                "mailto:florina.pricop@scse-edu.fr?subject=English Class Inquiry", 
+                class: "ev-contact-link-hover",
+                "aria-label": "Send email to Ms. Pricop" %>
+          </p>
+          <small class="text-muted">I typically respond within 24 hours</small>
+        </div>
+      </div>
+      
+      <!-- Office Hours -->
+      <div class="col-md-6">
+        <div class="contact-method p-3 border rounded h-100">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-clock fs-5 text-primary me-2" aria-hidden="true"></i>
+            <strong class="fw-bold">Office Hours</strong>
+          </div>
+          <p class="ev-section-p mb-2">
+            <strong>Tuesdays & Thursdays</strong><br>
+            3:30 PM - 4:30 PM
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JavaScript for folder functionality -->
+
+<!-- Bootstrap Icons (add this to your head section if not already included) -->
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+<%= stylesheet_link_tag :home, "data-turbo-track": "reload" %>
+
+<%= javascript_include_tag 'home', defer: true %>
+
+<% end %>

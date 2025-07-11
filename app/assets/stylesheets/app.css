@@ -1,0 +1,329 @@
+/* =============================================================================
+   IMPORTS & FONTS
+   ============================================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+/* =============================================================================
+   GLOBAL BASE STYLES
+   ============================================================================= */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  padding-top: 70px; /* Add padding to account for fixed navbar */
+}
+
+/* Fix for anchor navigation offset */
+section[id] {
+  scroll-margin-top: 90px; /* Adjust this value based on your navbar height + desired spacing */
+}
+
+/* Alternative method if scroll-margin-top doesn't work in older browsers */
+/*
+section[id]::before {
+  content: '';
+  display: block;
+  height: 90px;
+  margin-top: -90px;
+  visibility: hidden;
+  pointer-events: none;
+}
+*/
+
+/* =============================================================================
+   CUSTOM NAVBAR STYLES
+   ============================================================================= */
+.custom-navbar {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  box-shadow: 0 2px 10px rgba(30, 64, 175, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  width: 100%;
+}
+
+.custom-navbar .navbar-brand {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  align-items: flex-start;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: #f0f9ff !important;
+  text-decoration: none !important;
+}
+
+.custom-navbar .navbar-brand .main-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  display: block;
+}
+
+.custom-navbar .navbar-brand .sub-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-top: 2px;
+  display: block;
+}
+
+.custom-navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+  margin: 0 0.25rem;
+}
+
+.custom-navbar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f0f9ff !important;
+  transform: translateY(-1px);
+}
+
+.custom-navbar .nav-link:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Custom mobile toggle button */
+.custom-toggler {
+  border: 2px solid white;
+  padding: 0.25rem 0.5rem;
+}
+
+.custom-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Login button in navbar */
+.custom-navbar .btn-light {
+  background-color: white;
+  border-color: white;
+  color: #1e40af;
+  font-weight: 600;
+  padding: 0.375rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar .btn-light:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* =============================================================================
+   MAIN CONTENT STYLES
+   ============================================================================= */
+.main-content {
+  min-height: calc(100vh - 70px); /* Account for navbar height */
+}
+
+/* =============================================================================
+   FOOTER STYLES
+   ============================================================================= */
+
+
+/* Updated footer styles for more compact appearance */
+.custom-footer {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  color: white;
+  padding: 1.25rem 0; /* Reduced from 2rem to 1.25rem */
+  margin-top: auto;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-footer p {
+  margin-bottom: 0.25rem; /* Reduced spacing between paragraphs */
+  font-size: 0.9rem; /* Slightly smaller text */
+  line-height: 1.4;
+}
+
+
+.footer-nav {
+  margin-top: 1rem;
+}
+
+.footer-link {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* =============================================================================
+   SECTION STYLES (keeping existing section styles for content)
+   ============================================================================= */
+section {
+  padding: 2rem 1.5rem;
+}
+
+.ev-section-bg { 
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+}
+
+.ev-section-h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.ev-section-p {
+  color: #4b5563;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+/* Course Lists */
+.ev-list-disc { 
+  list-style-type: disc; 
+  padding-left: 1.5rem;
+}
+
+.ev-list-inside {
+  list-style-position: inside;
+}
+
+.ev-space-y-2 > li { 
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  color: #374151;
+}
+
+.ev-space-y-2 > li:last-child { 
+  margin-bottom: 0; 
+}
+
+/* Resources Grid */
+.ev-resources-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.ev-resource-strong-block {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+/* Contact Links */
+.ev-contact-link-hover {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ev-contact-link-hover:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
+
+/* =============================================================================
+   RESPONSIVE MEDIA QUERIES
+   ============================================================================= */
+
+/* Small screens (sm: 640px and up) */
+@media (min-width: 640px) {
+  .ev-resources-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  section {
+    padding: 2.5rem 2rem;
+  }
+}
+
+/* Medium screens (md: 768px and up) */
+@media (min-width: 768px) {
+  .custom-navbar .navbar-nav {
+    align-items: center;
+  }
+  
+  .ev-section-h2 {
+    font-size: 2rem;
+  }
+  
+  .ev-section-p {
+    font-size: 1.125rem;
+  }
+}
+
+/* Large screens (lg: 1024px and up) */
+@media (min-width: 1024px) {
+  section {
+    padding: 3rem 2.5rem;
+  }
+  
+  .ev-resources-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* =============================================================================
+   UTILITY CLASSES (keeping some useful ones)
+   ============================================================================= */
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #1e40af;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+.skip-link:focus {
+  top: 6px;
+}

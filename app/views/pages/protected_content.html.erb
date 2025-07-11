@@ -1,0 +1,120 @@
+<% content_for :title, "Class Materials - English Class by Florina Pricop" %>
+<% content_for :description, "Access your exclusive English class materials, assignments, and resources." %>
+
+<div class="container mt-5">
+  <!-- Welcome Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+        <div class="card-body text-white p-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h1 class="h2 fw-bold mb-2">🎉 Welcome to Your Class Materials!</h1>
+              <p class="mb-0 opacity-90">You can now upload files and edit the home page as you want.</p>
+            </div>
+            <div class="text-end">
+              <%= link_to "Logout", logout_path, method: :delete, 
+                  class: "btn btn-light fw-semibold",
+                  confirm: "Are you sure you want to log out?" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Section -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex justify-content-center">
+      <div class="card shadow-sm" style="max-width: 300px;">
+        <img src="/mwa.png" class="card-img-top img-fluid" alt="Class Image" style="height: 400px; object-fit: cover;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Cards -->
+  <div class="row">
+    <!-- Edit Text Card -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fas fa-edit text-primary" style="font-size: 3rem;"></i>
+          </div>
+          <h5 class="card-title fw-bold text-dark">Edit Home Page Text</h5>
+          <p class="card-text text-muted mb-4">
+            Customize and update the text content that appears on your main page. 
+            Edit descriptions, announcements, and class information.
+          </p>
+          <%= link_to "Edit Text", edit_home_text_path, 
+              class: "btn btn-primary btn-lg px-4 fw-semibold",
+              style: "background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); border: none;" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Files Card -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fas fa-cloud-upload-alt text-success" style="font-size: 3rem;"></i>
+          </div>
+          <h5 class="card-title fw-bold text-dark">Upload Files</h5>
+          <p class="card-text text-muted mb-4">
+            Upload documents, assignments, and resources that will be accessible 
+            to students on the main page.
+          </p>
+          <%= link_to "Upload Files", upload_files_path, 
+              class: "btn btn-success btn-lg px-4 fw-semibold" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: Khôlle Schedule Card -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fas fa-calendar-alt text-purple" style="font-size: 3rem; color: #7c3aed !important;"></i>
+          </div>
+          <h5 class="card-title fw-bold text-dark">Generate Khôlle Schedule</h5>
+          <p class="card-text text-muted mb-4">
+            Automatically generate oral examination schedules for your students 
+            with optimized teacher and time slot assignments.
+          </p>
+          <%= link_to "Create Schedule", kholle_schedule_path, 
+              class: "btn btn-lg px-4 fw-semibold text-white",
+              style: "background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); border: none;" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Info Section (Optional) -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card border-0 bg-light">
+        <div class="card-body p-4">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h6 class="fw-bold text-dark mb-2">Quick Tips</h6>
+              <ul class="list-unstyled mb-0 text-muted small">
+                <li>• Use the Edit Text feature to update class announcements</li>
+                <li>• Upload files in PDF, DOC, or image formats</li>
+                <li>• Generate new Khôlle schedules as needed for exams</li>
+                <li>• Changes will be reflected immediately on the main page</li>
+              </ul>
+            </div>
+            <div class="col-md-4 text-end">
+              <i class="fas fa-info-circle text-info" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Font Awesome for icons (if not already included) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

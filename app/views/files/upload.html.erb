@@ -1,0 +1,458 @@
+<% content_for :title, "Upload Files - English Class" %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <!-- Header -->
+      <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+        <div class="card-body text-white p-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h1 class="h2 fw-bold mb-2">📁 File Upload Center</h1>
+              <p class="mb-0 opacity-90">Upload and manage files for your students</p>
+            </div>
+            <div>
+              <%= link_to "← Back", protected_content_path, class: "btn btn-light fw-semibold" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Create New Folder -->
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+          <h5 class="fw-bold mb-0">
+            <i class="fas fa-folder-plus text-warning me-2"></i>
+            Create New Folder
+          </h5>
+        </div>
+        <div class="card-body p-4">
+          <%= form_with url: create_folder_path, method: :post, local: true do |form| %>
+            <div class="mb-3">
+              <label for="folder_name" class="form-label fw-semibold">Folder Name</label>
+              <%= form.text_field :folder_name, 
+                  class: "form-control",
+                  placeholder: "e.g., Homework Week 1, Reading Materials",
+                  required: true %>
+            </div>
+            
+            <%= form.submit "Create Folder", 
+                class: "btn btn-warning fw-semibold w-100" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload New File -->
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+          <h5 class="fw-bold mb-0">
+            <i class="fas fa-cloud-upload-alt text-success me-2"></i>
+            Upload New File
+          </h5>
+        </div>
+        <div class="card-body p-4">
+          <%= form_with url: upload_files_path, method: :post, multipart: true, local: true do |form| %>
+            <div class="mb-3">
+              <label for="folder_select" class="form-label fw-semibold">Select Folder</label>
+              <%= form.select :folder_name, 
+                  options_for_select([
+                    ['Root Directory', ''],
+                    *(@folders || []).map { |folder| [folder, folder] }
+                  ]), 
+                  {}, 
+                  { class: "form-select mb-3" } %>
+            </div>
+
+            <div class="mb-3">
+              <label for="file_type" class="form-label fw-semibold">File Type</label>
+              <%= form.select :file_type, 
+                  options_for_select([
+                    ['General Resource', ''],
+                    ['Weekly Schedule', 'weekly_schedule'],
+                    ['Khôlle Schedule', 'kholle_schedule']
+                  ]), 
+                  {}, 
+                  { class: "form-select mb-3" } %>
+            </div>
+            
+            <div class="mb-3">
+              <label for="file" class="form-label fw-semibold">Choose File</label>
+              <%= form.file_field :file, 
+                  class: "form-control",
+                  accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.txt,.ppt,.pptx,.xls,.xlsx",
+                  required: true %>
+              <div class="form-text">
+                Supported formats: PDF, DOC, DOCX, JPG, PNG, GIF, TXT, PPT, XLS
+              </div>
+            </div>
+            
+            <%= form.submit "Upload File", 
+                class: "btn btn-success fw-semibold w-100",
+                style: "background: linear-gradient(135deg, #059669 0%, #10b981 100%); border: none;" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sync Local Files -->
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+          <h5 class="fw-bold mb-0">
+            <i class="fas fa-sync-alt text-primary me-2"></i>
+            Sync Local Files
+          </h5>
+        </div>
+        <div class="card-body p-4">
+          <p class="text-muted mb-3">
+            Copy files from your local directory:<br>
+            <code>/Users/mathis/websitefp/public/Files</code>
+          </p>
+          
+          <%= form_with url: sync_local_files_path, method: :post, local: true do |form| %>
+            <%= form.submit "Sync Files", 
+                class: "btn btn-primary fw-semibold w-100",
+                data: { confirm: "This will copy all files from your local Files directory. Continue?" } %>
+          <% end %>
+          
+          <div class="mt-3 p-2 bg-light rounded">
+            <small class="text-muted">
+              <i class="fas fa-info-circle me-1"></i>
+              This will copy all files from your local Files folder to the web application.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current Files and Folders -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">
+              <i class="fas fa-folder-open text-warning me-2"></i>
+              File Management
+            </h5>
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn btn-outline-secondary active" onclick="showView('folders')">
+                <i class="fas fa-folder me-1"></i> Folders
+              </button>
+              <button type="button" class="btn btn-outline-secondary" onclick="showView('all-files')">
+                <i class="fas fa-file me-1"></i> All Files
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-4">
+          
+          <!-- Folders View -->
+          <div id="folders-view">
+            <% if @folders && @folders.any? %>
+              <div class="row g-3 mb-4">
+                <% @folders.each do |folder| %>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="folder-card" data-folder="<%= folder %>">
+                      <!-- Folder Header (Clickable) -->
+                      <div class="card border-0 bg-light h-100 folder-item folder-closed" 
+                           style="cursor: pointer; transition: all 0.3s ease;"
+                           onclick="toggleFolder('<%= folder.gsub(/[^a-zA-Z0-9]/, '-') %>')"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+                        <div class="card-body p-3">
+                          <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                              <div class="folder-icon me-3">
+                                <i class="fas fa-folder text-warning folder-icon-closed" style="font-size: 1.5rem;"></i>
+                                <i class="fas fa-folder-open text-warning folder-icon-open" style="font-size: 1.5rem; display: none;"></i>
+                              </div>
+                              <div>
+                                <h6 class="mb-0 fw-semibold"><%= folder %></h6>
+                                <small class="text-muted">
+                                  <%= (@folder_files[folder] || []).length %> files
+                                </small>
+                              </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <div class="folder-arrow me-2">
+                                <i class="fas fa-chevron-right text-muted folder-arrow-closed"></i>
+                                <i class="fas fa-chevron-down text-muted folder-arrow-open" style="display: none;"></i>
+                              </div>
+                              <div class="dropdown" onclick="event.stopPropagation();">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <%= form_with url: delete_folder_path(folder_name: folder),
+                                        method: :delete,
+                                        local: true,
+                                        class: "d-inline",
+                                        data: { confirm: "Are you sure you want to delete the folder '#{folder}' and all its contents?" } do |form| %>
+                                      <%= form.submit "Delete Folder", 
+                                          class: "dropdown-item text-danger border-0 bg-transparent text-start w-100",
+                                          style: "cursor: pointer;" %>
+                                    <% end %>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Folder Contents (Initially Hidden) -->
+                      <div id="folder-<%= folder.gsub(/[^a-zA-Z0-9]/, '-') %>" 
+                           class="folder-contents mt-3" 
+                           data-folder="<%= folder %>"
+                           style="display: none;">
+                        <div class="card border-start border-warning border-3">
+                          <div class="card-header bg-warning bg-opacity-10 py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <small class="fw-semibold">
+                                <i class="fas fa-folder-open me-1"></i>
+                                <%= folder %> Contents
+                              </small>
+                              <button class="btn btn-sm btn-outline-secondary" 
+                                      onclick="event.stopPropagation(); toggleFolder('<%= folder.gsub(/[^a-zA-Z0-9]/, '-') %>')"
+                                      title="Close folder">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="card-body p-2">
+                            <% if @folder_files[folder] && @folder_files[folder].any? %>
+                              <% @folder_files[folder].each do |file| %>
+                                <div class="d-flex align-items-center justify-content-between py-2 border-bottom file-item"
+                                     style="transition: background-color 0.2s ease;"
+                                     onmouseover="this.style.backgroundColor='#f8f9fa'"
+                                     onmouseout="this.style.backgroundColor='transparent'">
+                                  <div class="d-flex align-items-center">
+                                    <i class="fas fa-<%= get_file_icon(file[:name]) %> text-primary me-2"></i>
+                                    <div>
+                                      <div class="fw-semibold"><%= file[:name] %></div>
+                                      <small class="text-muted"><%= number_to_human_size(file[:size]) %></small>
+                                    </div>
+                                  </div>
+                                  <div class="btn-group btn-group-sm">
+                                    <a href="<%= file[:url] %>" 
+                                       class="btn btn-outline-primary btn-sm" 
+                                       target="_blank"
+                                       title="View File"
+                                       onclick="event.stopPropagation();">
+                                      <i class="fas fa-eye"></i>
+                                    </a>
+                                    <%= button_to delete_file_path(filename: file[:name]),
+                                      method: :delete,
+                                      class: "btn btn-outline-danger btn-sm",
+                                      form: { 
+                                        data: { 
+                                          turbo_confirm: "Are you sure you want to delete '#{file[:name]}'?" 
+                                        } 
+                                      } do %>
+                                      <i class="fas fa-trash"></i>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              <% end %>
+                            <% else %>
+                              <div class="text-center py-3 text-muted">
+                                <i class="fas fa-file-slash"></i>
+                                <p class="mb-0 small">This folder is empty</p>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text-center py-5">
+                <i class="fas fa-folder-open text-muted" style="font-size: 3rem;"></i>
+                <h6 class="text-muted mt-3">No folders created yet</h6>
+                <p class="text-muted small">Create your first folder using the form above</p>
+              </div>
+            <% end %>
+
+            <!-- Root Files -->
+            <% if @root_files && @root_files.any? %>
+              <div class="mt-4">
+                <h6 class="fw-bold text-muted mb-3">
+                  <i class="fas fa-file me-2"></i>
+                  Files in Root Directory (<%= @root_files.length %>)
+                </h6>
+                <div class="table-responsive">
+                  <table class="table table-hover table-sm">
+                    <tbody>
+                      <% @root_files.each do |file| %>
+                        <tr>
+                          <td class="py-2">
+                            <div class="d-flex align-items-center">
+                              <i class="fas fa-<%= get_file_icon(file[:name]) %> text-primary me-2"></i>
+                              <div>
+                                <div class="fw-semibold"><%= file[:name] %></div>
+                                <small class="text-muted"><%= number_to_human_size(file[:size]) %> • <%= file[:modified].strftime("%m/%d/%Y") %></small>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="py-2 text-end">
+                            <div class="btn-group btn-group-sm">
+                              <a href="<%= file[:url] %>" 
+                                 class="btn btn-outline-primary btn-sm" 
+                                 target="_blank"
+                                 title="View File">
+                                <i class="fas fa-eye"></i>
+                              </a>
+                              <%= button_to delete_file_path(filename: URI.encode_www_form_component(file[:name])),
+                                method: :delete,
+                                class: "btn btn-outline-danger btn-sm",
+                                form: { 
+                                  data: { 
+                                    turbo_confirm: "Are you sure you want to delete '#{file[:name]}'?" 
+                                  } 
+                                } do %>
+                                <i class="fas fa-trash"></i>
+                              <% end %>
+                            </div>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+
+          <!-- All Files View (Initially Hidden) -->
+          <div id="all-files-view" style="display: none;">
+            <% if @files && @files.any? %>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="table-light">
+                    <tr>
+                      <th><i class="fas fa-file me-2"></i>File Name</th>
+                      <th><i class="fas fa-folder me-2"></i>Folder</th>
+                      <th><i class="fas fa-weight me-2"></i>Size</th>
+                      <th><i class="fas fa-calendar me-2"></i>Modified</th>
+                      <th><i class="fas fa-cog me-2"></i>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @files.each do |file| %>
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-<%= get_file_icon(file[:name]) %> text-primary me-2"></i>
+                            <strong><%= file[:name] %></strong>
+                          </div>
+                        </td>
+                        <td class="text-muted">
+                          <% if file[:folder] && !file[:folder].empty? %>
+                            <i class="fas fa-folder me-1"></i><%= file[:folder] %>
+                          <% else %>
+                            <i class="fas fa-home me-1"></i>Root
+                          <% end %>
+                        </td>
+                        <td class="text-muted">
+                          <%= number_to_human_size(file[:size]) %>
+                        </td>
+                        <td class="text-muted">
+                          <%= file[:modified].strftime("%m/%d/%Y %I:%M %p") %>
+                        </td>
+                        <td>
+                          <div class="btn-group btn-group-sm">
+                            <a href="<%= file[:url] %>" 
+                               class="btn btn-outline-primary btn-sm" 
+                               target="_blank"
+                               title="View File">
+                              <i class="fas fa-eye"></i>
+                            </a>
+                            <%= link_to delete_file_path(filename: file[:name]),
+                              method: :delete,
+                              class: "btn btn-outline-danger btn-sm",
+                              title: "Delete File",
+                              data: {
+                                confirm: "Are you sure you want to delete '#{file[:name]}'?",
+                                turbo_method: "delete"
+                              } do %>
+                              <i class="fas fa-trash"></i>
+                            <% end %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% else %>
+              <div class="text-center py-5">
+                <i class="fas fa-file-slash text-muted" style="font-size: 3rem;"></i>
+                <h6 class="text-muted mt-3">No files uploaded yet</h6>
+                <p class="text-muted small">Upload your first file using the form above</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card border-0 bg-light">
+        <div class="card-body p-4">
+          <h6 class="fw-bold text-dark mb-2">
+            <i class="fas fa-question-circle text-info me-2"></i>
+            How It Works
+          </h6>
+          <div class="row">
+            <div class="col-md-4">
+              <ul class="list-unstyled mb-0 text-muted small">
+                <li>• Create folders to organize your files by topic or week</li>
+                <li>• Upload files directly to specific folders or root directory</li>
+                <li>• Students can browse folders and download files easily</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <ul class="list-unstyled mb-0 text-muted small">
+                <li>• Click on folders to expand and see their contents</li>
+                <li>• Use the toggle buttons to switch between folder and list view</li>
+                <li>• Delete entire folders or individual files as needed</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <ul class="list-unstyled mb-0 text-muted small">
+                <li>• Sync function copies files from your local computer</li>
+                <li>• All files are stored in organized folder structure</li>
+                <li>• Students see the same folder organization on home page</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'upload', defer: true %>
+
+<%= stylesheet_link_tag :upload, "data-turbo-track": "reload" %>
+
+<!-- Add Font Awesome if not already included -->
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<% end %>

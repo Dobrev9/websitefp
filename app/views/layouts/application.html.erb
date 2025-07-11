@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic Meta Tags -->
+    <meta charset="utf-8">
+    <title><%= content_for(:title) || "English Class by Florina Pricop - Passionate Teaching & Learning" %></title>
+    <meta name="description" content="<%= content_for(:description) || 'Join Ms. Florina Pricop\'s English classes. Experienced teacher offering ELA, World Literature, Creative Writing, and AP English courses with personalized support.' %>">
+    <meta name="keywords" content="English teacher, ELA, literature, creative writing, AP English, ESL, education">
+    <meta name="author" content="Ms. Florina Pricop">
+    
+    <!-- Viewport & Mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Rails Security -->
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="<%= content_for(:title) || 'English Class by Florina Pricop' %>">
+    <meta property="og:description" content="<%= content_for(:description) || 'Passionate English teaching with personalized support for all students.' %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:site_name" content="English Class by Florina Pricop">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= content_for(:title) || 'English Class by Florina Pricop' %>">
+    <meta name="twitter:description" content="<%= content_for(:description) || 'Passionate English teaching with personalized support.' %>">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="shortcut icon" href="/icon.png">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" 
+          crossorigin="anonymous">
+    
+    <!-- Custom Stylesheets -->
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    
+    <!-- Additional Head Content -->
+    <%= yield :head %>
+    
+    <!-- PWA Manifest (uncomment when ready) -->
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1e40af">
+  </head>
+  
+  <body>
+    <!-- Skip to Main Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg custom-navbar fixed-top" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand/Logo -->
+        <%= link_to root_path, 
+            class: "navbar-brand text-white fw-bold",
+            "aria-label": "English Class by Ms. Florina Pricop - Home" do %>
+          <span class="main-title">English Class</span>
+          <span class="sub-title">By Florina Pricop</span>
+        <% end %>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler custom-toggler" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <%= link_to "About Me", root_path(anchor: "about"), 
+                  class: "nav-link text-white",
+                  "aria-describedby": "about-desc" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Projects", root_path(anchor: "courses"), 
+                  class: "nav-link text-white",
+                  "aria-describedby": "courses-desc" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Resources", root_path(anchor: "resources"), 
+                  class: "nav-link text-white",
+                  "aria-describedby": "resources-desc" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Contact", root_path(anchor: "contact"), 
+                  class: "nav-link text-white",
+                  "aria-describedby": "contact-desc" %>
+            </li>
+            <li class="nav-item">
+              <% if session[:authenticated] %>
+                <%= link_to "Class Materials", protected_content_path, class: "btn btn-success me-2" %>
+                <%= button_to "Logout", logout_path, 
+                    method: :delete, 
+                    class: "btn btn-outline-light",
+                    data: { "turbo-confirm": "Are you sure you want to log out?" } %>
+              <% else %>
+                <%= link_to "Log in", login_path, class: "btn btn-light" %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Main Content Area -->
+    <main id="main-content" 
+          class="main-content" 
+          role="main"
+          tabindex="-1">
+      
+      <!-- Flash Messages -->
+      <div class="container mt-3">
+        <% if notice %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= notice %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+        
+        <% if alert %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= alert %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- Page Content -->
+      <%= yield %>
+      
+    </main>
+    
+    <!-- Site Footer - Mobile Responsive Version -->
+    <footer class="custom-footer mt-3" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <!-- Mobile version: 3 lines -->
+            <div class="d-block d-md-none">
+              <p class="mb-1">&copy; <%= Date.current.year %> Ms. Florina Pricop.</p>
+              <p class="mb-1">Designed with <span aria-label="love">❤️</span> for every student.</p>
+              <p class="mb-0">Made by Mathis Dobrev.</p>
+            </div>
+            <!-- Desktop version: 2 lines -->
+            <div class="d-none d-md-block">
+              <p class="mb-1">&copy; <%= Date.current.year %> Ms. Florina Pricop. Designed with <span aria-label="love">❤️</span> for every student.</p>
+              <p class="mb-0">Made by Mathis Dobrev.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" 
+            crossorigin="anonymous"></script>
+    
+    <!-- Rails JavaScript -->
+    <%= javascript_importmap_tags %>
+    <%= turbo_include_tags %>
+    
+    <!-- Additional JavaScript -->
+    <%= yield :javascript %>
+  </body>
+</html>

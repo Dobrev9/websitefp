@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # For Render/Fly.io, use ENV['DATABASE_URL'] in production
+  url: <%= ENV['DATABASE_URL'] %>
+
+development:
+  <<: *default
+  database: your_app_development
+
+test:
+  <<: *default
+  database: your_app_test
+
+production:
+  <<: *default
+  # Render/Fly.io will auto-inject DATABASE_URL
